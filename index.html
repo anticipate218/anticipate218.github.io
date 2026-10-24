@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="celestial">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>曹帅帅 · 学术主页</title>
+  <meta name="description" content="曹帅帅（Shuaishuai Cao）的学术主页：遥感影像解译、计算机视觉、多模态学习与大模型智能体。">
+  <meta name="author" content="Shuaishuai Cao">
+  <meta name="theme-color" content="#060b1d">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Shuaishuai Cao · 曹帅帅">
+  <meta property="og:description" content="Remote Sensing · Computer Vision · Multimodal Learning · LLM Agents">
+  <meta property="og:url" content="https://anticipate218.github.io/">
+  <meta property="og:image" content="https://anticipate218.github.io/assets/img/bg.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://anticipate218.github.io/">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/avatar.jpg">
+  <link rel="preload" href="assets/img/bg.jpg" as="image">
+  <script>
+    /* 在首帧前应用主题与语言，避免闪烁 / apply theme & language before first paint */
+    (function () {
+      try {
+        var THEMES = ["celestial", "daylight", "aurora", "paper"];
+        var params = new URLSearchParams(location.search);
+        var saved = params.get("theme") || localStorage.getItem("site-theme") || "system";
+        var resolved = saved;
+        if (THEMES.indexOf(saved) === -1) {
+          resolved = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "daylight" : "celestial";
+        }
+        document.documentElement.setAttribute("data-theme", resolved);
+        var lang = params.get("lang") || localStorage.getItem("site-lang") || ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+        if (lang !== "zh" && lang !== "en") lang = "zh";
+        document.documentElement.setAttribute("lang", lang === "zh" ? "zh-CN" : "en");
+        document.documentElement.setAttribute("data-lang", lang);
+        if (localStorage.getItem("site-motion") === "off") document.documentElement.setAttribute("data-motion", "off");
+      } catch (e) { /* storage may be blocked; defaults stay */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Shuaishuai Cao",
+    "alternateName": "曹帅帅",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Central South University"
+    },
+    "url": "https://anticipate218.github.io/",
+    "image": "https://anticipate218.github.io/assets/img/avatar.jpg",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=9DUk4NYAAAAJ",
+      "https://github.com/anticipate218"
+    ],
+    "knowsAbout": [
+      "Remote Sensing",
+      "Computer Vision",
+      "Semantic Segmentation",
+      "Multimodal Learning",
+      "Large Language Models"
+    ],
+    "email": "mailto:265011218@csu.edu.cn",
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Jiangxi Normal University",
+        "alternateName": "江西师范大学"
+      }
+    ],
+    "award": [
+      "National Scholarship",
+      "Top Ten Undergraduates, Jiangxi Normal University"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">跳到正文</a>
+
+  <!-- 背景层 / background layers -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__image"></div>
+    <div class="backdrop__veil"></div>
+    <div id="tsparticles" class="backdrop__stars"></div>
+    <canvas id="starfield-fallback" class="backdrop__stars" hidden></canvas>
+  </div>
+
+  <!-- SVG 图标 / icon sprite -->
+  <svg width="0" height="0" class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9M12 3C9.4 5.6 8.1 8.6 8.1 12s1.3 6.4 3.9 9" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 9l8 2v10M2 21h20M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7L12 2zM19 16l.9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="9.5" y="9.5" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-school" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5L2 9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 11v5c3.5 2.7 8.5 2.7 12 0v-5M22 9v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-scholar" viewBox="0 0 24 24"><path d="M12 2L1 9l4 2.6V16c0 1.7 3.1 4 7 4s7-2.3 7-4v-4.4l2-1.3V16h2V9L12 2zm0 2.4L19.2 9 12 13.6 4.8 9 12 4.4z" fill="currentColor"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 6.5L12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9L12 2.8z" fill="currentColor"/></symbol>
+    <symbol id="i-fork" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="19" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M6 7.2v1.3c0 2 1.6 3.5 3.5 3.5h5c1.9 0 3.5-1.5 3.5-3.5V7.2M12 12v4.8" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-repo" viewBox="0 0 24 24"><path d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v16H7.5A2.5 2.5 0 0 0 5 20.5v-16zM5 20.5A2.5 2.5 0 0 0 7.5 23H20v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6V2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 2v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9 7H5v6h4c0 2-1 3.5-3 4M19 7h-4v6h4c0 2-1 3.5-3 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7.5" cy="11" r="1.3" fill="currentColor"/><circle cx="10" cy="7.3" r="1.3" fill="currentColor"/><circle cx="14.5" cy="7.3" r="1.3" fill="currentColor"/><circle cx="17" cy="11" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="i-translate" viewBox="0 0 24 24"><path d="M3 5h10M8 3v2M5.5 5c.8 3 3 5.6 6 7M10.5 5c-.8 3.6-3.4 6.6-7 8.3M13 21l4-10 4 10M14.4 17.5h5.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-satellite" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="24" y="24" width="16" height="16" rx="3" transform="rotate(45 32 32)" fill="currentColor" fill-opacity=".18"/><path d="M20.7 20.7l-9.9-9.9M43.3 43.3l9.9 9.9"/><rect x="2" y="2" width="14" height="22" rx="1.5" transform="rotate(-45 9 13)" fill="currentColor" fill-opacity=".12"/><rect x="48" y="40" width="14" height="22" rx="1.5" transform="rotate(-45 55 51)" fill="currentColor" fill-opacity=".12"/><path d="M40 24c3 0 5.5 1 7 3M42 18c4.6 0 8.6 1.8 11.4 5"/></g></symbol>
+    <symbol id="i-motion" viewBox="0 0 24 24"><path d="M4 12h3l2.5-6 5 12 2.5-6h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- 顶栏 / header -->
+  <header class="topbar" id="top">
+    <div class="topbar__inner">
+      <a class="brand" href="#about" aria-label="Home">
+        <svg class="brand__logo" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <radialGradient id="brandEarth" cx="35%" cy="30%" r="75%">
+              <stop offset="0" stop-color="#9fdcff"/>
+              <stop offset=".55" stop-color="#2f7cf6"/>
+              <stop offset="1" stop-color="#0b2a6b"/>
+            </radialGradient>
+          </defs>
+          <circle cx="20" cy="20" r="9" fill="url(#brandEarth)"/>
+          <ellipse cx="20" cy="20" rx="17" ry="6.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="1.2" transform="rotate(-22 20 20)"/>
+          <circle class="brand__sat" r="2.2" fill="var(--accent-2)">
+            <animateMotion dur="6s" repeatCount="indefinite" path="M3.6 26.4 a17 6.5 -22 1 1 32.8 -12.8 a17 6.5 -22 1 1 -32.8 12.8"/>
+          </circle>
+        </svg>
+        <span class="brand__text" data-bind="profile.name">曹帅帅</span>
+      </a>
+
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="#about" data-i18n="nav.about">关于</a>
+        <a href="#news" data-i18n="nav.news">动态</a>
+        <a href="#publications" data-i18n="nav.publications">论文</a>
+        <a href="#projects" data-i18n="nav.projects">项目</a>
+        <a href="#activity" data-i18n="nav.activity">科研数据</a>
+      </nav>
+
+      <div class="controls">
+        <button class="icon-btn" id="lang-toggle" type="button" data-i18n-attr="aria-label:ctrl.lang;title:ctrl.lang">
+          <svg aria-hidden="true"><use href="#i-translate"/></svg>
+          <span class="icon-btn__label" data-i18n="ctrl.langShort">EN</span>
+        </button>
+        <div class="theme-picker">
+          <button class="icon-btn" id="theme-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" data-i18n-attr="aria-label:ctrl.theme;title:ctrl.theme">
+            <svg aria-hidden="true"><use href="#i-palette"/></svg>
+          </button>
+          <div class="theme-menu" id="theme-menu" role="menu" hidden>
+            <button type="button" role="menuitemradio" data-theme-option="system"><span class="swatch swatch--system"></span><span data-i18n="theme.system">跟随系统</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+            <button type="button" role="menuitemradio" data-theme-option="celestial"><span class="swatch swatch--celestial"></span><span data-i18n="theme.celestial">星穹 Celestial</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+            <button type="button" role="menuitemradio" data-theme-option="daylight"><span class="swatch swatch--daylight"></span><span data-i18n="theme.daylight">晴空 Daylight</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+            <button type="button" role="menuitemradio" data-theme-option="aurora"><span class="swatch swatch--aurora"></span><span data-i18n="theme.aurora">极光 Aurora</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+            <button type="button" role="menuitemradio" data-theme-option="paper"><span class="swatch swatch--paper"></span><span data-i18n="theme.paper">纸本 Paper</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+            <div class="theme-menu__sep" role="separator"></div>
+            <button type="button" role="menuitemcheckbox" id="motion-toggle"><svg class="lead" aria-hidden="true"><use href="#i-motion"/></svg><span data-i18n="ctrl.motion">动画</span><svg class="tick" aria-hidden="true"><use href="#i-check"/></svg></button>
+          </div>
+        </div>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n-attr="aria-label:nav.menu;title:nav.menu">
+          <svg aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout" id="main">
+    <!-- 左侧个人卡片 / profile card -->
+    <aside class="profile glass" aria-label="Profile">
+      <div class="avatar">
+        <svg class="avatar__orbit" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--accent)" stop-opacity=".9"/>
+              <stop offset=".5" stop-color="var(--accent)" stop-opacity=".1"/>
+              <stop offset="1" stop-color="var(--accent-2)" stop-opacity=".8"/>
+            </linearGradient>
+          </defs>
+          <circle cx="120" cy="120" r="112" fill="none" stroke="url(#orbitGrad)" stroke-width="1.4" stroke-dasharray="2 6"/>
+          <g class="avatar__sat-track">
+            <g transform="translate(120 8)">
+              <svg x="-11" y="-11" width="22" height="22" class="avatar__sat"><use href="#i-satellite"/></svg>
+            </g>
+          </g>
+        </svg>
+        <img class="avatar__img" src="assets/img/avatar.jpg" width="512" height="512" alt="Shuaishuai Cao" data-bind-attr="alt:profile.name" decoding="async">
+      </div>
+
+      <h1 class="profile__name">
+        <span data-bind="profile.name">曹帅帅</span>
+        <small data-bind="profile.altName">Shuaishuai Cao</small>
+      </h1>
+      <p class="profile__handle">@<span data-bind="profile.handle">anticipate218</span></p>
+      <p class="profile__title" data-bind="profile.title">AI 研究者 · 遥感 · 计算机视觉 · 多模态学习</p>
+
+      <ul class="profile__meta">
+        <li class="edu" id="edu-row"><svg aria-hidden="true"><use href="#i-school"/></svg><span class="sr-only" data-i18n="profile.education">教育经历</span><span class="edu__list" id="edu-list"><span class="edu__item is-current"><span class="edu__school">中南大学</span><span class="edu__degree">硕士研究生 · 在读</span></span><span class="edu__item"><span class="edu__school">江西师范大学</span><span class="edu__degree">本科</span><span class="edu__honors"><span class="edu__honor">🏅 十佳大学生</span><span class="edu__honor">🏅 国家奖学金</span></span></span></span></li>
+        <li><svg aria-hidden="true"><use href="#i-pin"/></svg><span class="sr-only" data-i18n="profile.location">所在地</span><span data-bind="profile.location">中国 · 长沙</span></li>
+        <li><svg aria-hidden="true"><use href="#i-scholar"/></svg><a id="link-scholar" href="https://scholar.google.com/citations?user=9DUk4NYAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener" data-i18n="profile.scholar">Google Scholar</a></li>
+        <li><svg aria-hidden="true"><use href="#i-github"/></svg><a id="link-github" href="https://github.com/anticipate218" target="_blank" rel="noopener">github.com/anticipate218</a></li>
+        <li id="email-row" hidden><svg aria-hidden="true"><use href="#i-mail"/></svg><a id="link-email" href="#"></a><button class="mini-btn" id="copy-email" type="button" data-i18n-attr="aria-label:profile.copyEmail;title:profile.copyEmail"><svg aria-hidden="true"><use href="#i-copy"/></svg></button></li>
+      </ul>
+
+      <dl class="stats">
+        <div class="stat"><dt data-i18n="stats.citations">总引用</dt><dd data-count="scholar.citations">32</dd></div>
+        <div class="stat"><dt data-i18n="stats.hindex">h 指数</dt><dd data-count="scholar.hIndex">3</dd></div>
+        <div class="stat"><dt data-i18n="stats.i10">i10 指数</dt><dd data-count="scholar.i10Index">1</dd></div>
+        <div class="stat"><dt data-i18n="stats.stars">GitHub Stars</dt><dd id="stat-stars">85</dd></div>
+      </dl>
+      <p class="profile__sync"><span data-i18n="stats.synced">Scholar 数据同步于</span> <time id="sync-date" datetime="2026-10-24">2026-10-24</time></p>
+
+      <div class="profile__actions">
+        <a class="btn btn--primary" id="btn-scholar" href="https://scholar.google.com/citations?user=9DUk4NYAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-scholar"/></svg><span data-i18n="profile.scholar">Google Scholar</span></a>
+        <a class="btn" id="btn-github" href="https://github.com/anticipate218" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-github"/></svg><span data-i18n="profile.github">GitHub</span></a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- 关于 / About -->
+      <section class="hero glass section" id="about" aria-labelledby="about-heading">
+        <div class="hero__text">
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span><span class="mono">~/README.md</span></p>
+          <h2 class="hero__heading" id="about-heading"><span data-i18n="hero.hello">你好，我是</span> <span class="gradient-text" data-bind="profile.name">曹帅帅</span> <span class="wave" aria-hidden="true">👋</span></h2>
+          <p class="typing" aria-live="polite"><span class="typing__prompt mono" aria-hidden="true">&gt;</span> <span id="typing-text"></span><span class="typing__caret" aria-hidden="true"></span></p>
+          <div class="hero__intro" id="intro"></div>
+          <h3 class="mini-heading" data-i18n="hero.interests">研究兴趣</h3>
+          <ul class="chips" id="interests"></ul>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#publications"><svg aria-hidden="true"><use href="#i-doc"/></svg><span data-i18n="hero.cta.pubs">查看论文</span></a>
+            <a class="btn" id="cta-scholar" href="https://scholar.google.com/citations?user=9DUk4NYAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-arrow"/></svg><span data-i18n="hero.cta.scholar">Google Scholar</span></a>
+          </div>
+        </div>
+
+        <!-- 地球轨道 SVG / Earth orbit illustration -->
+        <div class="hero__art" aria-hidden="true">
+          <svg class="orbit-art" viewBox="0 0 400 400">
+            <defs>
+              <radialGradient id="earthFill" cx="36%" cy="32%" r="78%">
+                <stop offset="0" stop-color="var(--earth-1)"/>
+                <stop offset=".5" stop-color="var(--earth-2)"/>
+                <stop offset="1" stop-color="var(--earth-3)"/>
+              </radialGradient>
+              <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+                <stop offset=".62" stop-color="var(--accent)" stop-opacity=".45"/>
+                <stop offset="1" stop-color="var(--accent)" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="nightSide" x1="0" y1="0" x2="1" y2="1">
+                <stop offset=".45" stop-color="#000" stop-opacity="0"/>
+                <stop offset="1" stop-color="#000" stop-opacity=".55"/>
+              </linearGradient>
+              <clipPath id="earthClip"><circle cx="200" cy="200" r="78"/></clipPath>
+              <path id="orbitA" d="M40 200 a160 58 0 1 0 320 0 a160 58 0 1 0 -320 0"/>
+              <path id="orbitB" d="M70 200 a130 46 0 1 0 260 0 a130 46 0 1 0 -260 0"/>
+              <path id="orbitC" d="M18 200 a182 70 0 1 0 364 0 a182 70 0 1 0 -364 0"/>
+            </defs>
+
+            <circle cx="200" cy="200" r="118" fill="url(#earthGlow)"/>
+
+            <!-- 轨道后半部分 / back halves of orbits -->
+            <g class="orbits" fill="none" stroke="var(--orbit)" stroke-width="1.2">
+              <use href="#orbitA" transform="rotate(-18 200 200)" stroke-dasharray="3 7"/>
+              <use href="#orbitB" transform="rotate(28 200 200)" stroke-opacity=".7"/>
+              <use href="#orbitC" transform="rotate(-48 200 200)" stroke-dasharray="1 9" stroke-opacity=".8"/>
+            </g>
+
+            <!-- 地球 / Earth -->
+            <g class="earth">
+              <circle cx="200" cy="200" r="78" fill="url(#earthFill)"/>
+              <g clip-path="url(#earthClip)" class="earth__land">
+                <g class="earth__spin">
+                  <path d="M120 170c14-10 30-12 40-4 8 6 4 16 14 20 12 5 22-2 30 6 6 6 0 16-8 20-12 6-26 2-34 10-6 6-2 16-12 20-14 6-30-6-34-20-4-14 0-40 4-52z"/>
+                  <path d="M226 132c12-6 30-4 38 6 6 8-2 16 6 24 8 8 22 6 26 16 4 12-8 22-20 22-14 0-20-12-32-12-10 0-16 10-26 6-10-4-8-18-4-28 4-12 0-28 12-34z"/>
+                  <path d="M236 236c10-4 22 0 26 10s-4 20-14 22-20-2-22-12 2-16 10-20z"/>
+                  <path d="M320 170c14-10 30-12 40-4 8 6 4 16 14 20 12 5 22-2 30 6 6 6 0 16-8 20-12 6-26 2-34 10-6 6-2 16-12 20-14 6-30-6-34-20-4-14 0-40 4-52z"/>
+                  <path d="M426 132c12-6 30-4 38 6 6 8-2 16 6 24 8 8 22 6 26 16 4 12-8 22-20 22-14 0-20-12-32-12-10 0-16 10-26 6-10-4-8-18-4-28 4-12 0-28 12-34z"/>
+                  <path d="M436 236c10-4 22 0 26 10s-4 20-14 22-20-2-22-12 2-16 10-20z"/>
+                </g>
+              </g>
+              <g clip-path="url(#earthClip)">
+                <g class="earth__grid" fill="none" stroke="var(--grid)" stroke-width=".8">
+                  <ellipse cx="200" cy="200" rx="78" ry="26"/>
+                  <ellipse cx="200" cy="200" rx="78" ry="54"/>
+                  <ellipse cx="200" cy="200" rx="26" ry="78"/>
+                  <ellipse cx="200" cy="200" rx="54" ry="78"/>
+                  <path d="M122 200h156M200 122v156"/>
+                </g>
+                <circle cx="200" cy="200" r="78" fill="url(#nightSide)"/>
+              </g>
+              <circle cx="200" cy="200" r="78" fill="none" stroke="var(--accent)" stroke-opacity=".55" stroke-width="1.5"/>
+            </g>
+
+            <!-- 卫星 / satellites -->
+            <g class="sat sat--a" transform="rotate(-18 200 200)">
+              <g>
+                <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"><mpath href="#orbitA"/></animateMotion>
+                <g transform="translate(-12 -12)"><svg width="24" height="24" class="sat__icon"><use href="#i-satellite"/></svg></g>
+                <circle r="26" class="sat__beam"/>
+              </g>
+            </g>
+            <g class="sat sat--b" transform="rotate(28 200 200)">
+              <g>
+                <animateMotion dur="11s" repeatCount="indefinite" rotate="auto" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#orbitB"/></animateMotion>
+                <circle r="4" class="sat__dot"/>
+                <circle r="9" class="sat__halo"/>
+              </g>
+            </g>
+            <g class="sat sat--c" transform="rotate(-48 200 200)">
+              <g>
+                <animateMotion dur="24s" repeatCount="indefinite" rotate="auto" begin="-6s"><mpath href="#orbitC"/></animateMotion>
+                <g transform="translate(-9 -9)"><svg width="18" height="18" class="sat__icon sat__icon--alt"><use href="#i-satellite"/></svg></g>
+              </g>
+            </g>
+
+            <!-- 信号环 / signal pings -->
+            <g class="pings" fill="none" stroke="var(--accent-2)">
+              <circle cx="226" cy="170" r="3"/>
+              <circle cx="226" cy="170" r="3" class="ping"/>
+              <circle cx="168" cy="226" r="2.5"/>
+              <circle cx="168" cy="226" r="2.5" class="ping ping--late"/>
+            </g>
+          </svg>
+          <p class="orbit-caption mono">LEO · RS · CV · LLM</p>
+        </div>
+      </section>
+
+      <!-- 动态 + 代表作 / News + Selected -->
+      <section class="glass section card" id="news" aria-labelledby="news-heading">
+        <header class="card__head">
+          <h2 id="news-heading"><span class="head-icon" aria-hidden="true">✦</span><span data-i18n="news.title">最新动态</span></h2>
+        </header>
+        <ol class="timeline stagger" id="news-list"></ol>
+        <button class="link-btn" id="news-more" type="button" data-i18n="news.more">展开全部</button>
+      </section>
+
+      <!-- 论文 / Publications -->
+      <section class="glass section" id="publications" aria-labelledby="pubs-heading">
+        <header class="section__head">
+          <div>
+            <h2 id="pubs-heading" data-i18n="pubs.title">代表作与论文发表</h2>
+            <p class="section__sub" data-i18n="pubs.subtitle">按发表级别与引用影响力排序，作者列表中加粗的是我。</p>
+          </div>
+          <div class="filters" role="tablist" id="pub-filters" aria-label="Filter publications"></div>
+        </header>
+        <div id="pub-list" class="pub-list"></div>
+      </section>
+
+      <!-- 项目 / Projects -->
+      <section class="glass section" id="projects" aria-labelledby="projects-heading">
+        <header class="section__head">
+          <div>
+            <h2 id="projects-heading" data-i18n="projects.title">开源项目</h2>
+            <p class="section__sub"><span data-i18n="projects.subtitle">按 Star 与 Fork 数排序，数据从 GitHub 实时刷新。</span> <span class="badge badge--soft" id="stars-source" data-i18n="projects.cached">缓存</span></p>
+          </div>
+          <a class="btn btn--ghost" id="all-repos" href="https://github.com/anticipate218?tab=repositories" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-repo"/></svg><span data-i18n="projects.all">查看全部仓库</span></a>
+        </header>
+        <div class="repo-grid stagger" id="repo-grid"></div>
+      </section>
+
+      <!-- 科研数据可视化 / Activity -->
+      <section class="glass section" id="activity" aria-labelledby="activity-heading">
+        <header class="section__head">
+          <div>
+            <h2 id="activity-heading" data-i18n="activity.title">科研数据可视化</h2>
+            <p class="section__sub" data-i18n="activity.subtitle">过去一年的 GitHub 贡献（等距日历）与学术影响力。</p>
+          </div>
+          <div class="filters" role="tablist" aria-label="Calendar source">
+            <button class="chip-btn is-active" type="button" role="tab" aria-selected="true" aria-controls="iso-live" id="tab-live" data-i18n="activity.tab.live">交互式等距日历</button>
+            <button class="chip-btn" type="button" role="tab" aria-selected="false" aria-controls="iso-metrics" id="tab-metrics" data-i18n="activity.tab.metrics">lowlighter/metrics</button>
+          </div>
+        </header>
+
+        <div class="iso-panel" id="iso-live" role="tabpanel" aria-labelledby="tab-live">
+          <div class="iso-stats" id="iso-stats"></div>
+          <div class="iso-stage">
+            <div class="iso-canvas" id="iso-canvas"><p class="muted" data-i18n="activity.loading">正在加载 GitHub 贡献数据…</p></div>
+            <div class="iso-tooltip" id="iso-tooltip" role="status" hidden></div>
+          </div>
+          <div class="iso-legend" aria-hidden="true">
+            <span data-i18n="activity.less">少</span>
+            <i style="background:var(--c0)"></i><i style="background:var(--c1)"></i><i style="background:var(--c2)"></i><i style="background:var(--c3)"></i><i style="background:var(--c4)"></i>
+            <span data-i18n="activity.more">多</span>
+          </div>
+        </div>
+        <div class="iso-panel" id="iso-metrics" role="tabpanel" aria-labelledby="tab-metrics" hidden>
+          <figure class="metrics-figure">
+            <img id="metrics-img" alt="GitHub isometric commit calendar generated by lowlighter/metrics" loading="lazy" decoding="async">
+            <figcaption class="muted" id="metrics-missing" data-i18n="activity.metricsMissing" hidden>metrics 图像会在 GitHub Action 首次运行后生成。</figcaption>
+          </figure>
+        </div>
+
+        <div class="viz-grid">
+          <figure class="viz-card">
+            <figcaption data-i18n="activity.citations">单篇引用分布</figcaption>
+            <div id="viz-citations" class="viz-body"></div>
+          </figure>
+          <figure class="viz-card">
+            <figcaption data-i18n="activity.topics">研究方向分布</figcaption>
+            <div id="viz-topics" class="viz-body"></div>
+          </figure>
+          <figure class="viz-card">
+            <figcaption data-i18n="activity.languages">项目语言分布</figcaption>
+            <div id="viz-langs" class="viz-body"></div>
+          </figure>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>© <span id="year">2026</span> <span data-bind="profile.name">曹帅帅</span> · <span data-i18n="footer.built">以 al-folio 的内容结构为灵感，纯静态构建，托管于 GitHub Pages。</span></p>
+        <p><span data-i18n="footer.updated">最近更新</span> <time id="footer-updated" datetime="2026-10-24">2026-10-24</time> · <a href="#top" data-i18n="footer.top">回到顶部</a></p>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/viz.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3.9.1/tsparticles.slim.bundle.min.js" defer id="tsparticles-lib"></script>
+</body>
+</html>

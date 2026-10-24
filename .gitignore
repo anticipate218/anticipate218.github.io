@@ -1,0 +1,6 @@
+# 原始大图仅保留在本地 / keep the original full-size images local only
+/photo.png
+/bg.png
+node_modules/
+.DS_Store
+Thumbs.db

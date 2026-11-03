@@ -13,9 +13,10 @@
 window.SITE_DATA = {
   meta: {
     syncedAt: "2026-10-24",
+    updatedAt: "2026-11-04",
     githubUser: "anticipate218",
     scholarId: "9DUk4NYAAAAJ",
-    githubStarsTotal: 85,
+    githubStarsTotal: 93,
     /* 预印本暂时隐藏，改为 true 即恢复显示 / set to true to show preprints again */
     showPreprints: false,
     siteUrl: "https://anticipate218.github.io/"
@@ -98,6 +99,16 @@ window.SITE_DATA = {
 
   /* 新闻 / News：按时间倒序 (newest first)；只写年份的条目放在同年已知月份条目之后 */
   news: [
+    {
+      date: "2026-11-04",
+      tag: "project",
+      hot: true,
+      text: {
+        zh: "新项目 PatentFlow AI：从技术主题到可编辑的专利图文初稿，支持检索、附图与 Word / ZIP 导出，欢迎在线体验。",
+        en: "New project: PatentFlow AI turns technical ideas into editable patent drafts, with prior-art research, figures and Word / ZIP export. Try it online."
+      },
+      link: "https://patentflow-ai.patentflow-ai.workers.dev/"
+    },
     {
       date: "2026-08",
       tag: "arxiv",
@@ -377,6 +388,20 @@ window.SITE_DATA = {
   /* 开源项目 / Projects —— stars 为静态兜底值，页面会尝试从 GitHub API 实时刷新 */
   projects: [
     {
+      repo: "PatentFlow-AI",
+      name: "PatentFlow AI",
+      website: "https://patentflow-ai.patentflow-ai.workers.dev/",
+      topic: "llm",
+      icon: "doc",
+      lang: "TypeScript",
+      stars: 5,
+      forks: 2,
+      desc: {
+        zh: "AI 辅助专利工作台：技术交底整理、现有技术检索、图文初稿与 Word / ZIP 导出。",
+        en: "An AI patent workspace for technical disclosures, prior-art research, editable drafts, figures and Word / ZIP export."
+      }
+    },
+    {
       repo: "GeoRefer-Bench",
       topic: "rs",
       lang: "Dataset",
@@ -435,7 +460,7 @@ window.SITE_DATA = {
       repo: "math-modeling-skill",
       topic: "llm",
       lang: "Python",
-      stars: 54,
+      stars: 56,
       forks: 2,
       desc: {
         zh: "面向 AI 助手的数学建模竞赛技能：覆盖国赛、研赛与美赛的选题、建模、检验与论文自检。",

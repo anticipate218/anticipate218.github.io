@@ -93,8 +93,8 @@
   }
 
   function formatNews(date) {
-    /* "2026-08" → 2026.08 */
-    return String(date).replace("-", ".");
+    /* Support both month-only dates and full publication dates. */
+    return String(date).replace(/-/g, ".");
   }
 
   /* ---------------- 国际化 / i18n ---------------- */
@@ -282,8 +282,9 @@
     }
     $("#sync-date").textContent = DATA.meta.syncedAt;
     $("#sync-date").setAttribute("datetime", DATA.meta.syncedAt);
-    $("#footer-updated").textContent = DATA.meta.syncedAt;
-    $("#footer-updated").setAttribute("datetime", DATA.meta.syncedAt);
+    var updatedAt = DATA.meta.updatedAt || DATA.meta.syncedAt;
+    $("#footer-updated").textContent = updatedAt;
+    $("#footer-updated").setAttribute("datetime", updatedAt);
     $("#year").textContent = String(new Date().getFullYear());
   }
 
@@ -486,15 +487,29 @@
       var p = item.p;
       var s = item.s;
       var color = LANG_COLORS[s.lang] || LANG_COLORS.Other;
-      return '<a class="repo" href="' + escapeHTML(s.url) + '" target="_blank" rel="noopener" style="--i:' + idx + '">' +
-        (REPO_ART[p.topic] || "") +
-        '<span class="repo__name">' + icon("repo") + escapeHTML(p.repo) + "</span>" +
+      var name = escapeHTML(p.name || p.repo);
+      var opening = p.website
+        ? '<article class="repo repo--website" data-repo="' + escapeHTML(p.repo) + '" style="--i:' + idx + '">'
+        : '<a class="repo" data-repo="' + escapeHTML(p.repo) + '" href="' + escapeHTML(s.url) + '" target="_blank" rel="noopener" style="--i:' + idx + '">';
+      var heading = p.website
+        ? '<span class="repo__category">' + icon("spark") + escapeHTML(t("projects.app")) + '</span>' +
+          '<h3 class="repo__name"><a href="' + escapeHTML(p.website) + '" target="_blank" rel="noopener">' + name + '</a></h3>'
+        : '<span class="repo__name">' + icon("repo") + name + '</span>';
+      var actions = p.website
+        ? '<div class="repo__actions"><a class="repo__demo" href="' + escapeHTML(p.website) + '" target="_blank" rel="noopener">' +
+          icon("arrow") + escapeHTML(t("projects.demo")) + '</a><a href="' + escapeHTML(s.url) + '" target="_blank" rel="noopener">' +
+          icon("github") + escapeHTML(t("projects.code")) + '</a></div>'
+        : "";
+      return opening +
+        (p.icon ? icon(p.icon, "repo__art") : (REPO_ART[p.topic] || "")) +
+        heading +
         '<p class="repo__desc">' + escapeHTML(L(p.desc)) + "</p>" +
+        actions +
         '<span class="repo__foot">' +
         '<span class="lang"><i class="lang-dot" style="background:' + color + '"></i>' + escapeHTML(s.lang) + "</span>" +
         '<span class="stars" title="' + escapeHTML(s.stars + " " + starWord) + '">' + icon("star") + "<b>" + s.stars + '</b><span class="sr-only"> ' + escapeHTML(starWord) + "</span></span>" +
         '<span class="forks" title="' + escapeHTML(s.forks + " " + forkWord) + '">' + icon("fork") + "<b>" + s.forks + '</b><span class="sr-only"> ' + escapeHTML(forkWord) + "</span></span>" +
-        "</span></a>";
+        "</span>" + (p.website ? "</article>" : "</a>");
     }).join("");
     var src = $("#stars-source");
     src.textContent = t(state.starsLive ? "projects.live" : "projects.cached");

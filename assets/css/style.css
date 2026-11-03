@@ -621,6 +621,17 @@ p { margin: 0 0 .8em; }
 .repo__foot .forks svg { color: var(--accent-2); }
 .repo__foot .lang { margin-right: auto; min-width: 0; }
 .repo__foot b { font-weight: 700; color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.repo--website { border-color: var(--chip-border); background: linear-gradient(145deg, var(--chip), var(--glass)); }
+.repo--website .repo__art { opacity: .12; }
+.repo--website .repo__name { margin: 0; }
+.repo--website .repo__name a { color: inherit; }
+.repo--website .repo__desc { display: block; overflow: visible; }
+.repo__category { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); font-size: .72rem; font-weight: 650; }
+.repo__category svg, .repo__actions svg { width: 14px; height: 14px; flex: none; }
+.repo__actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 6px; }
+.repo__actions a { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 9px; border: 1px solid var(--chip-border); border-radius: 8px; color: var(--link); font-size: .76rem; font-weight: 650; line-height: 1.4; }
+.repo__actions .repo__demo { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.repo__actions a:hover { text-decoration: none; filter: brightness(1.1); }
 .lang-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
 /* ---------- 等距日历 / isometric calendar ---------- */

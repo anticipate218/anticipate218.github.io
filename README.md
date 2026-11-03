@@ -11,7 +11,8 @@ Source of my academic homepage, deployed on GitHub Pages.
 - **微动态**：仿 readme-typing-svg 的打字动画、地球轨道 SVG 与环绕卫星、头像轨道卫星。
 - **星空背景**：tsParticles（CDN），CDN 不可用时自动切换到内置 Canvas 星空。
 - **科研数据可视化**：交互式等距贡献日历（实时数据）、lowlighter/metrics 等距日历（GitHub Action 生成）、单篇引用条形图、研究方向与项目语言分布。
-- **al-folio 式内容结构**：关于 / 动态 / 代表作 / 论文（按方向筛选、按年份分组、一键复制 BibTeX）/ 开源项目（Star 实时刷新）。
+- **al-folio 式内容结构**：关于 / 动态 / 代表作与论文（按方向筛选、按级别排序、一键复制 BibTeX）/ 开源项目（Star 与 Fork 实时刷新）。
+- **在线项目**：PatentFlow AI 提供在线体验与 GitHub 源码双入口；项目仍按 Star、Fork 数排序。
 - **无构建步骤**：纯 HTML + CSS + JS，所有内容集中在 `assets/js/data.js`。
 - 尊重 `prefers-reduced-motion`，并提供手动「动画」开关。
 
@@ -35,12 +36,14 @@ tools/prepare-images.ps1   从 photo.png / bg.png 生成网页图片 / image opt
 ## 本地预览 / Local preview
 
 ```bash
-node tools/serve.mjs        # → http://localhost:5173/
+node tools/serve.mjs        # → http://127.0.0.1:5173/
 ```
 
 ## 更新内容 / Updating content
 
 - 论文、动态、项目：编辑 `assets/js/data.js`。
+- 项目可填写 `name`（显示名称）、`website`（在线体验地址）和 `icon`（站内 SVG 图标）；`repo` 保留 GitHub 仓库名称用于统计。
+- 每次修改内容更新 `meta.updatedAt`（页脚更新日期），`meta.syncedAt` 仅表示 Scholar 数据同步日期。
 - Scholar 指标（引用数、h 指数）：修改 `scholar` 字段与 `meta.syncedAt`。
 - 邮箱：在 `profile.email` 填入后，个人卡片会自动显示「邮箱」行与复制按钮。
 - 替换头像或背景：覆盖根目录的 `photo.png` / `bg.png`，然后运行

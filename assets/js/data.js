@@ -13,7 +13,7 @@
 window.SITE_DATA = {
   meta: {
     syncedAt: "2026-10-24",
-    updatedAt: "2026-11-04",
+    updatedAt: "2026-11-12",
     githubUser: "anticipate218",
     scholarId: "9DUk4NYAAAAJ",
     githubStarsTotal: 93,
@@ -73,11 +73,11 @@ window.SITE_DATA = {
     intro: {
       zh: [
         "你好！我是曹帅帅，现为中南大学硕士研究生，本科毕业于江西师范大学（曾获国家奖学金、十佳大学生）。研究方向是遥感影像智能解译与计算机视觉，同时关注大语言模型与智能体。",
-        "我的工作围绕「从像素到可验证的地理空间推理」展开：高精度建筑物提取（CBRNet）、遥感语义分割标注质量审计（Contrastive Mask Fidelity）、无人机场景指代基准（GeoRefer-Bench），以及面向开放词汇遥感分割的数据集工厂。在大模型方向，我参与了工具调用智能体的表征工程（ASA）、神经符号知识图谱问答（NeuroSymActive）与混合大模型扩展规律（cMoLLM）等研究。"
+        "我的工作围绕遥感影像智能解译展开：高精度建筑物提取（CBRNet），以及面向开放词汇遥感分割的数据集工厂。在大模型方向，我参与了工具调用智能体的表征工程（ASA）、神经符号知识图谱问答（NeuroSymActive）与混合大模型扩展规律（cMoLLM）等研究。"
       ],
       en: [
         "Hi! I'm Shuaishuai Cao, a master's student at Central South University. I received my bachelor's degree from Jiangxi Normal University, where I was awarded the National Scholarship and named one of the Top Ten Undergraduates. I work on intelligent remote sensing image interpretation and computer vision, and I'm also active in large language models and agents.",
-        "My research runs from pixels to verifiable geospatial reasoning: high-precision building extraction (CBRNet), reference-free auditing of segmentation masks (Contrastive Mask Fidelity), referring benchmarks over UAV scenes (GeoRefer-Bench), and a dataset factory for open-vocabulary remote sensing segmentation. On the LLM side, I have contributed to representation engineering for tool-calling agents (ASA), neural-symbolic KGQA (NeuroSymActive) and horizontal scaling laws for mixtures of LLMs (cMoLLM)."
+        "My research centers on intelligent interpretation of remote sensing imagery: high-precision building extraction (CBRNet) and a dataset factory for open-vocabulary remote sensing segmentation. On the LLM side, I have contributed to representation engineering for tool-calling agents (ASA), neural-symbolic KGQA (NeuroSymActive) and horizontal scaling laws for mixtures of LLMs (cMoLLM)."
       ]
     },
     interests: [
@@ -108,24 +108,6 @@ window.SITE_DATA = {
         en: "New project: PatentFlow AI turns technical ideas into editable patent drafts, with prior-art research, figures and Word / ZIP export. Try it online."
       },
       link: "https://patentflow-ai.patentflow-ai.workers.dev/"
-    },
-    {
-      date: "2026-08",
-      tag: "arxiv",
-      text: {
-        zh: "第一作者论文 Contrastive Mask Fidelity 发布于 arXiv（2608.09101）：无需参考即可审计遥感语义分割真值掩膜。",
-        en: "First-author paper Contrastive Mask Fidelity is on arXiv (2608.09101): reference-free auditing of ground-truth masks in remote sensing segmentation."
-      },
-      link: "https://arxiv.org/abs/2608.09101"
-    },
-    {
-      date: "2026-08",
-      tag: "open",
-      text: {
-        zh: "开源 GeoRefer-Bench：从指代像素到可验证地理空间推理的基准，覆盖 700 个大尺度无人机场景。",
-        en: "Open-sourced GeoRefer-Bench, a benchmark from referring pixels to verifiable geospatial reasoning over 700 large-scale UAV scenes."
-      },
-      link: "https://github.com/anticipate218/GeoRefer-Bench"
     },
     {
       date: "2026-07",
@@ -211,28 +193,6 @@ window.SITE_DATA = {
       summary: {
         zh: "利用角点先验引导边界细化，提升遥感影像中建筑物轮廓提取的几何精度。",
         en: "Uses corner priors to guide boundary refinement for geometrically precise building footprints."
-      }
-    },
-    {
-      id: "cmf",
-      title: "Contrastive Mask Fidelity: Reference-Free Auditing of Ground-Truth Masks in Remote Sensing Semantic Segmentation",
-      authors: "S Cao, S Peng, M Tang, M Huang, Y Wang, J Chen, J Ouyang, Z Zhai",
-      venue: "arXiv preprint arXiv:2608.09101",
-      venueShort: "arXiv",
-      year: 2026,
-      type: "preprint",
-      topic: "rs",
-      selected: true,
-      firstAuthor: true,
-      citations: 0,
-      links: {
-        arxiv: "https://arxiv.org/abs/2608.09101",
-        pdf: "https://arxiv.org/pdf/2608.09101",
-        scholar: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=9DUk4NYAAAAJ&citation_for_view=9DUk4NYAAAAJ:zYLM7Y9cAGgC"
-      },
-      summary: {
-        zh: "无需参考标注，通过对比一致性度量自动发现遥感分割数据集中的错误真值掩膜。",
-        en: "Flags faulty ground-truth masks in RS segmentation datasets via contrastive consistency, with no reference labels."
       }
     },
     {
@@ -399,17 +359,6 @@ window.SITE_DATA = {
       desc: {
         zh: "AI 辅助专利工作台：技术交底整理、现有技术检索、图文初稿与 Word / ZIP 导出。",
         en: "An AI patent workspace for technical disclosures, prior-art research, editable drafts, figures and Word / ZIP export."
-      }
-    },
-    {
-      repo: "GeoRefer-Bench",
-      topic: "rs",
-      lang: "Dataset",
-      stars: 2,
-      forks: 0,
-      desc: {
-        zh: "从指代像素到可验证地理空间推理的基准，覆盖 700 个大尺度无人机场景。",
-        en: "A benchmark from referring pixels to verifiable geospatial reasoning over 700 large-scale UAV scenes."
       }
     },
     {
